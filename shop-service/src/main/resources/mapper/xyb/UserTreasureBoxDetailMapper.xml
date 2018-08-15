@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.shop.mapper.xyb.UserTreasureBoxDetailMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.shop.model.xyb.UserTreasureBoxDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="box_no" jdbcType="VARCHAR" property="boxNo" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="friends_open_id" jdbcType="VARCHAR" property="friendsOpenId" />
+    <result column="friends_headimgurl" jdbcType="VARCHAR" property="friendsHeadimgurl" />
+    <result column="is_open_box" jdbcType="INTEGER" property="isOpenBox" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="create_dt" jdbcType="TIMESTAMP" property="createDt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, box_no, open_id, friends_open_id, friends_headimgurl, is_open_box, start_time, 
+    create_dt
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_treasure_box_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_treasure_box_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_treasure_box_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetailExample">
+    delete from user_treasure_box_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_treasure_box_detail (box_no, open_id, friends_open_id, 
+      friends_headimgurl, is_open_box, start_time, 
+      create_dt)
+    values (#{boxNo,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{friendsOpenId,jdbcType=VARCHAR}, 
+      #{friendsHeadimgurl,jdbcType=VARCHAR}, #{isOpenBox,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_treasure_box_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="boxNo != null">
+        box_no,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="friendsOpenId != null">
+        friends_open_id,
+      </if>
+      <if test="friendsHeadimgurl != null">
+        friends_headimgurl,
+      </if>
+      <if test="isOpenBox != null">
+        is_open_box,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="createDt != null">
+        create_dt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="boxNo != null">
+        #{boxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="friendsOpenId != null">
+        #{friendsOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="friendsHeadimgurl != null">
+        #{friendsHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenBox != null">
+        #{isOpenBox,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetailExample" resultType="java.lang.Long">
+    select count(*) from user_treasure_box_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_treasure_box_detail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.boxNo != null">
+        box_no = #{record.boxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendsOpenId != null">
+        friends_open_id = #{record.friendsOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendsHeadimgurl != null">
+        friends_headimgurl = #{record.friendsHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOpenBox != null">
+        is_open_box = #{record.isOpenBox,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDt != null">
+        create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_treasure_box_detail
+    set id = #{record.id,jdbcType=BIGINT},
+      box_no = #{record.boxNo,jdbcType=VARCHAR},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      friends_open_id = #{record.friendsOpenId,jdbcType=VARCHAR},
+      friends_headimgurl = #{record.friendsHeadimgurl,jdbcType=VARCHAR},
+      is_open_box = #{record.isOpenBox,jdbcType=INTEGER},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      create_dt = #{record.createDt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetail">
+    update user_treasure_box_detail
+    <set>
+      <if test="boxNo != null">
+        box_no = #{boxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="friendsOpenId != null">
+        friends_open_id = #{friendsOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="friendsHeadimgurl != null">
+        friends_headimgurl = #{friendsHeadimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenBox != null">
+        is_open_box = #{isOpenBox,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDt != null">
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.shop.model.xyb.UserTreasureBoxDetail">
+    update user_treasure_box_detail
+    set box_no = #{boxNo,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      friends_open_id = #{friendsOpenId,jdbcType=VARCHAR},
+      friends_headimgurl = #{friendsHeadimgurl,jdbcType=VARCHAR},
+      is_open_box = #{isOpenBox,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      create_dt = #{createDt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

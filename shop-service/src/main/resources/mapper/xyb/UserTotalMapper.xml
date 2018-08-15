@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.shop.mapper.xyb.UserTotalMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.shop.model.xyb.UserTotal">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="mer_code" jdbcType="VARCHAR" property="merCode" />
+    <result column="total_acquire" jdbcType="DECIMAL" property="totalAcquire" />
+    <result column="total_bonus" jdbcType="DECIMAL" property="totalBonus" />
+    <result column="total_profit" jdbcType="DECIMAL" property="totalProfit" />
+    <result column="total_agent_gain" jdbcType="DECIMAL" property="totalAgentGain" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, username, mer_code, total_acquire, total_bonus, total_profit, total_agent_gain
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.shop.model.xyb.UserTotalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_total
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_total
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_total
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.shop.model.xyb.UserTotalExample">
+    delete from user_total
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.shop.model.xyb.UserTotal">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_total (username, mer_code, total_acquire, 
+      total_bonus, total_profit, total_agent_gain
+      )
+    values (#{username,jdbcType=VARCHAR}, #{merCode,jdbcType=VARCHAR}, #{totalAcquire,jdbcType=DECIMAL}, 
+      #{totalBonus,jdbcType=DECIMAL}, #{totalProfit,jdbcType=DECIMAL}, #{totalAgentGain,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.shop.model.xyb.UserTotal">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_total
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="merCode != null">
+        mer_code,
+      </if>
+      <if test="totalAcquire != null">
+        total_acquire,
+      </if>
+      <if test="totalBonus != null">
+        total_bonus,
+      </if>
+      <if test="totalProfit != null">
+        total_profit,
+      </if>
+      <if test="totalAgentGain != null">
+        total_agent_gain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAcquire != null">
+        #{totalAcquire,jdbcType=DECIMAL},
+      </if>
+      <if test="totalBonus != null">
+        #{totalBonus,jdbcType=DECIMAL},
+      </if>
+      <if test="totalProfit != null">
+        #{totalProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAgentGain != null">
+        #{totalAgentGain,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.shop.model.xyb.UserTotalExample" resultType="java.lang.Long">
+    select count(*) from user_total
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_total
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merCode != null">
+        mer_code = #{record.merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAcquire != null">
+        total_acquire = #{record.totalAcquire,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalBonus != null">
+        total_bonus = #{record.totalBonus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalProfit != null">
+        total_profit = #{record.totalProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalAgentGain != null">
+        total_agent_gain = #{record.totalAgentGain,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_total
+    set id = #{record.id,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      mer_code = #{record.merCode,jdbcType=VARCHAR},
+      total_acquire = #{record.totalAcquire,jdbcType=DECIMAL},
+      total_bonus = #{record.totalBonus,jdbcType=DECIMAL},
+      total_profit = #{record.totalProfit,jdbcType=DECIMAL},
+      total_agent_gain = #{record.totalAgentGain,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.shop.model.xyb.UserTotal">
+    update user_total
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        mer_code = #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAcquire != null">
+        total_acquire = #{totalAcquire,jdbcType=DECIMAL},
+      </if>
+      <if test="totalBonus != null">
+        total_bonus = #{totalBonus,jdbcType=DECIMAL},
+      </if>
+      <if test="totalProfit != null">
+        total_profit = #{totalProfit,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAgentGain != null">
+        total_agent_gain = #{totalAgentGain,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.shop.model.xyb.UserTotal">
+    update user_total
+    set username = #{username,jdbcType=VARCHAR},
+      mer_code = #{merCode,jdbcType=VARCHAR},
+      total_acquire = #{totalAcquire,jdbcType=DECIMAL},
+      total_bonus = #{totalBonus,jdbcType=DECIMAL},
+      total_profit = #{totalProfit,jdbcType=DECIMAL},
+      total_agent_gain = #{totalAgentGain,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

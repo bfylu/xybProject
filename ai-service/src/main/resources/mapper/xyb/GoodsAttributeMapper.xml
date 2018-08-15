@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.xyb.GoodsAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.xyb.GoodsAttribute">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="is_support_by_stages" jdbcType="INTEGER" property="isSupportByStages" />
+    <result column="is_support_exchange" jdbcType="INTEGER" property="isSupportExchange" />
+    <result column="exchange_price" jdbcType="DECIMAL" property="exchangePrice" />
+    <result column="need_integral_number" jdbcType="INTEGER" property="needIntegralNumber" />
+    <result column="goods_sales" jdbcType="INTEGER" property="goodsSales" />
+    <result column="goods_browsing_volume" jdbcType="INTEGER" property="goodsBrowsingVolume" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="rule_id" jdbcType="BIGINT" property="ruleId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goods_id, is_support_by_stages, is_support_exchange, exchange_price, need_integral_number, 
+    goods_sales, goods_browsing_volume, create_time, update_time, rule_id
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.xyb.GoodsAttributeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from goods_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.xyb.GoodsAttributeExample">
+    delete from goods_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.xyb.GoodsAttribute">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into goods_attribute (goods_id, is_support_by_stages, is_support_exchange, 
+      exchange_price, need_integral_number, goods_sales, 
+      goods_browsing_volume, create_time, update_time, 
+      rule_id)
+    values (#{goodsId,jdbcType=BIGINT}, #{isSupportByStages,jdbcType=INTEGER}, #{isSupportExchange,jdbcType=INTEGER}, 
+      #{exchangePrice,jdbcType=DECIMAL}, #{needIntegralNumber,jdbcType=INTEGER}, #{goodsSales,jdbcType=INTEGER}, 
+      #{goodsBrowsingVolume,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{ruleId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.xyb.GoodsAttribute">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into goods_attribute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="isSupportByStages != null">
+        is_support_by_stages,
+      </if>
+      <if test="isSupportExchange != null">
+        is_support_exchange,
+      </if>
+      <if test="exchangePrice != null">
+        exchange_price,
+      </if>
+      <if test="needIntegralNumber != null">
+        need_integral_number,
+      </if>
+      <if test="goodsSales != null">
+        goods_sales,
+      </if>
+      <if test="goodsBrowsingVolume != null">
+        goods_browsing_volume,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="ruleId != null">
+        rule_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="isSupportByStages != null">
+        #{isSupportByStages,jdbcType=INTEGER},
+      </if>
+      <if test="isSupportExchange != null">
+        #{isSupportExchange,jdbcType=INTEGER},
+      </if>
+      <if test="exchangePrice != null">
+        #{exchangePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="needIntegralNumber != null">
+        #{needIntegralNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSales != null">
+        #{goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="goodsBrowsingVolume != null">
+        #{goodsBrowsingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.xyb.GoodsAttributeExample" resultType="java.lang.Long">
+    select count(*) from goods_attribute
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods_attribute
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isSupportByStages != null">
+        is_support_by_stages = #{record.isSupportByStages,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSupportExchange != null">
+        is_support_exchange = #{record.isSupportExchange,jdbcType=INTEGER},
+      </if>
+      <if test="record.exchangePrice != null">
+        exchange_price = #{record.exchangePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.needIntegralNumber != null">
+        need_integral_number = #{record.needIntegralNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsSales != null">
+        goods_sales = #{record.goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsBrowsingVolume != null">
+        goods_browsing_volume = #{record.goodsBrowsingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ruleId != null">
+        rule_id = #{record.ruleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods_attribute
+    set id = #{record.id,jdbcType=BIGINT},
+      goods_id = #{record.goodsId,jdbcType=BIGINT},
+      is_support_by_stages = #{record.isSupportByStages,jdbcType=INTEGER},
+      is_support_exchange = #{record.isSupportExchange,jdbcType=INTEGER},
+      exchange_price = #{record.exchangePrice,jdbcType=DECIMAL},
+      need_integral_number = #{record.needIntegralNumber,jdbcType=INTEGER},
+      goods_sales = #{record.goodsSales,jdbcType=INTEGER},
+      goods_browsing_volume = #{record.goodsBrowsingVolume,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      rule_id = #{record.ruleId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.xyb.GoodsAttribute">
+    update goods_attribute
+    <set>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="isSupportByStages != null">
+        is_support_by_stages = #{isSupportByStages,jdbcType=INTEGER},
+      </if>
+      <if test="isSupportExchange != null">
+        is_support_exchange = #{isSupportExchange,jdbcType=INTEGER},
+      </if>
+      <if test="exchangePrice != null">
+        exchange_price = #{exchangePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="needIntegralNumber != null">
+        need_integral_number = #{needIntegralNumber,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSales != null">
+        goods_sales = #{goodsSales,jdbcType=INTEGER},
+      </if>
+      <if test="goodsBrowsingVolume != null">
+        goods_browsing_volume = #{goodsBrowsingVolume,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ruleId != null">
+        rule_id = #{ruleId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.xyb.GoodsAttribute">
+    update goods_attribute
+    set goods_id = #{goodsId,jdbcType=BIGINT},
+      is_support_by_stages = #{isSupportByStages,jdbcType=INTEGER},
+      is_support_exchange = #{isSupportExchange,jdbcType=INTEGER},
+      exchange_price = #{exchangePrice,jdbcType=DECIMAL},
+      need_integral_number = #{needIntegralNumber,jdbcType=INTEGER},
+      goods_sales = #{goodsSales,jdbcType=INTEGER},
+      goods_browsing_volume = #{goodsBrowsingVolume,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      rule_id = #{ruleId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

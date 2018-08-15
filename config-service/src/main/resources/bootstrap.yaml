@@ -1,0 +1,52 @@
+server:
+  port: 8768
+
+# ---native 本地文件
+spring:
+  cloud:
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+    config:
+      server:
+        native:
+          search-locations: d:/respo     #本地文件还是需要放到非工程下面
+#          search-locations: classpath:/respo
+  profiles:
+     active: native
+  application:
+    name: config-service
+
+#  security:
+#    basic:
+#       enabled: true               # 开启基于HTTP basic的认证
+#    user:
+#      name: admin                  # 配置登录的账号是user
+#      password: 123456             # 配置登录的密码是password123
+
+#### git 配置------------
+#spring:
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: https://github.com/dsdfdf/cloud-config-samples.git
+#          search-paths: '{application}'
+#  application:
+#    name: config-service
+  rabbitmq:
+    host: 192.168.1.202
+    port: 5672
+    username: admin
+    password: admin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        include: bus-refresh

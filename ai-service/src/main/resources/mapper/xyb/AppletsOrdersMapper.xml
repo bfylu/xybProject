@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.xyb.AppletsOrdersMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.xyb.AppletsOrders">
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="mer_code" jdbcType="VARCHAR" property="merCode" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_snapshot_ids" jdbcType="VARCHAR" property="goodsSnapshotIds" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="goods_pic" jdbcType="VARCHAR" property="goodsPic" />
+    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
+    <result column="deliver_money" jdbcType="DECIMAL" property="deliverMoney" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType" />
+    <result column="is_pay" jdbcType="INTEGER" property="isPay" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="is_invoice" jdbcType="INTEGER" property="isInvoice" />
+    <result column="invoice_client" jdbcType="VARCHAR" property="invoiceClient" />
+    <result column="order_remarks" jdbcType="VARCHAR" property="orderRemarks" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="order_src" jdbcType="INTEGER" property="orderSrc" />
+    <result column="order_flag" jdbcType="INTEGER" property="orderFlag" />
+    <result column="transaction_id" jdbcType="VARCHAR" property="transactionId" />
+    <result column="payf_rom" jdbcType="INTEGER" property="payfRom" />
+    <result column="real_otal_oney" jdbcType="DECIMAL" property="realOtalOney" />
+    <result column="pay_total_money" jdbcType="DECIMAL" property="payTotalMoney" />
+    <result column="pry_time" jdbcType="TIMESTAMP" property="pryTime" />
+    <result column="order_completion_time" jdbcType="TIMESTAMP" property="orderCompletionTime" />
+    <result column="orders_cancel_time" jdbcType="TIMESTAMP" property="ordersCancelTime" />
+    <result column="order_refund_time" jdbcType="TIMESTAMP" property="orderRefundTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, order_no, province_code, city_code, area_code, mer_code, goods_id, goods_name, 
+    goods_snapshot_ids, order_status, goods_price, goods_pic, goods_count, total_money, 
+    deliver_money, pay_type, is_pay, open_id, address_id, is_invoice, invoice_client, 
+    order_remarks, out_trade_no, order_src, order_flag, transaction_id, payf_rom, real_otal_oney, 
+    pay_total_money, pry_time, order_completion_time, orders_cancel_time, order_refund_time, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.xyb.AppletsOrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from applets_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from applets_orders
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from applets_orders
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.xyb.AppletsOrdersExample">
+    delete from applets_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.xyb.AppletsOrders">
+    insert into applets_orders (order_id, order_no, province_code, 
+      city_code, area_code, mer_code, 
+      goods_id, goods_name, goods_snapshot_ids, 
+      order_status, goods_price, goods_pic, 
+      goods_count, total_money, deliver_money, 
+      pay_type, is_pay, open_id, 
+      address_id, is_invoice, invoice_client, 
+      order_remarks, out_trade_no, order_src, 
+      order_flag, transaction_id, payf_rom, 
+      real_otal_oney, pay_total_money, pry_time, 
+      order_completion_time, orders_cancel_time, 
+      order_refund_time, create_time, update_time
+      )
+    values (#{orderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{merCode,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=BIGINT}, #{goodsName,jdbcType=VARCHAR}, #{goodsSnapshotIds,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=INTEGER}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsPic,jdbcType=VARCHAR}, 
+      #{goodsCount,jdbcType=INTEGER}, #{totalMoney,jdbcType=DECIMAL}, #{deliverMoney,jdbcType=DECIMAL}, 
+      #{payType,jdbcType=INTEGER}, #{isPay,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, 
+      #{addressId,jdbcType=INTEGER}, #{isInvoice,jdbcType=INTEGER}, #{invoiceClient,jdbcType=VARCHAR}, 
+      #{orderRemarks,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, #{orderSrc,jdbcType=INTEGER}, 
+      #{orderFlag,jdbcType=INTEGER}, #{transactionId,jdbcType=VARCHAR}, #{payfRom,jdbcType=INTEGER}, 
+      #{realOtalOney,jdbcType=DECIMAL}, #{payTotalMoney,jdbcType=DECIMAL}, #{pryTime,jdbcType=TIMESTAMP}, 
+      #{orderCompletionTime,jdbcType=TIMESTAMP}, #{ordersCancelTime,jdbcType=TIMESTAMP}, 
+      #{orderRefundTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.xyb.AppletsOrders">
+    insert into applets_orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="merCode != null">
+        mer_code,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsSnapshotIds != null">
+        goods_snapshot_ids,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsPic != null">
+        goods_pic,
+      </if>
+      <if test="goodsCount != null">
+        goods_count,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="deliverMoney != null">
+        deliver_money,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="isPay != null">
+        is_pay,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="isInvoice != null">
+        is_invoice,
+      </if>
+      <if test="invoiceClient != null">
+        invoice_client,
+      </if>
+      <if test="orderRemarks != null">
+        order_remarks,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="orderSrc != null">
+        order_src,
+      </if>
+      <if test="orderFlag != null">
+        order_flag,
+      </if>
+      <if test="transactionId != null">
+        transaction_id,
+      </if>
+      <if test="payfRom != null">
+        payf_rom,
+      </if>
+      <if test="realOtalOney != null">
+        real_otal_oney,
+      </if>
+      <if test="payTotalMoney != null">
+        pay_total_money,
+      </if>
+      <if test="pryTime != null">
+        pry_time,
+      </if>
+      <if test="orderCompletionTime != null">
+        order_completion_time,
+      </if>
+      <if test="ordersCancelTime != null">
+        orders_cancel_time,
+      </if>
+      <if test="orderRefundTime != null">
+        order_refund_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSnapshotIds != null">
+        #{goodsSnapshotIds,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPic != null">
+        #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null">
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverMoney != null">
+        #{deliverMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="isPay != null">
+        #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="isInvoice != null">
+        #{isInvoice,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceClient != null">
+        #{invoiceClient,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemarks != null">
+        #{orderRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSrc != null">
+        #{orderSrc,jdbcType=INTEGER},
+      </if>
+      <if test="orderFlag != null">
+        #{orderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="transactionId != null">
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="payfRom != null">
+        #{payfRom,jdbcType=INTEGER},
+      </if>
+      <if test="realOtalOney != null">
+        #{realOtalOney,jdbcType=DECIMAL},
+      </if>
+      <if test="payTotalMoney != null">
+        #{payTotalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pryTime != null">
+        #{pryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCompletionTime != null">
+        #{orderCompletionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordersCancelTime != null">
+        #{ordersCancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundTime != null">
+        #{orderRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.xyb.AppletsOrdersExample" resultType="java.lang.Long">
+    select count(*) from applets_orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update applets_orders
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceCode != null">
+        province_code = #{record.provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null">
+        city_code = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null">
+        area_code = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merCode != null">
+        mer_code = #{record.merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsName != null">
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsSnapshotIds != null">
+        goods_snapshot_ids = #{record.goodsSnapshotIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsPrice != null">
+        goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsPic != null">
+        goods_pic = #{record.goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsCount != null">
+        goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalMoney != null">
+        total_money = #{record.totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliverMoney != null">
+        deliver_money = #{record.deliverMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payType != null">
+        pay_type = #{record.payType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPay != null">
+        is_pay = #{record.isPay,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressId != null">
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isInvoice != null">
+        is_invoice = #{record.isInvoice,jdbcType=INTEGER},
+      </if>
+      <if test="record.invoiceClient != null">
+        invoice_client = #{record.invoiceClient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderRemarks != null">
+        order_remarks = #{record.orderRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTradeNo != null">
+        out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSrc != null">
+        order_src = #{record.orderSrc,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderFlag != null">
+        order_flag = #{record.orderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.transactionId != null">
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payfRom != null">
+        payf_rom = #{record.payfRom,jdbcType=INTEGER},
+      </if>
+      <if test="record.realOtalOney != null">
+        real_otal_oney = #{record.realOtalOney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payTotalMoney != null">
+        pay_total_money = #{record.payTotalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pryTime != null">
+        pry_time = #{record.pryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderCompletionTime != null">
+        order_completion_time = #{record.orderCompletionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ordersCancelTime != null">
+        orders_cancel_time = #{record.ordersCancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderRefundTime != null">
+        order_refund_time = #{record.orderRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update applets_orders
+    set order_id = #{record.orderId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      province_code = #{record.provinceCode,jdbcType=VARCHAR},
+      city_code = #{record.cityCode,jdbcType=VARCHAR},
+      area_code = #{record.areaCode,jdbcType=VARCHAR},
+      mer_code = #{record.merCode,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=BIGINT},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_snapshot_ids = #{record.goodsSnapshotIds,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      goods_pic = #{record.goodsPic,jdbcType=VARCHAR},
+      goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      total_money = #{record.totalMoney,jdbcType=DECIMAL},
+      deliver_money = #{record.deliverMoney,jdbcType=DECIMAL},
+      pay_type = #{record.payType,jdbcType=INTEGER},
+      is_pay = #{record.isPay,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      address_id = #{record.addressId,jdbcType=INTEGER},
+      is_invoice = #{record.isInvoice,jdbcType=INTEGER},
+      invoice_client = #{record.invoiceClient,jdbcType=VARCHAR},
+      order_remarks = #{record.orderRemarks,jdbcType=VARCHAR},
+      out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      order_src = #{record.orderSrc,jdbcType=INTEGER},
+      order_flag = #{record.orderFlag,jdbcType=INTEGER},
+      transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+      payf_rom = #{record.payfRom,jdbcType=INTEGER},
+      real_otal_oney = #{record.realOtalOney,jdbcType=DECIMAL},
+      pay_total_money = #{record.payTotalMoney,jdbcType=DECIMAL},
+      pry_time = #{record.pryTime,jdbcType=TIMESTAMP},
+      order_completion_time = #{record.orderCompletionTime,jdbcType=TIMESTAMP},
+      orders_cancel_time = #{record.ordersCancelTime,jdbcType=TIMESTAMP},
+      order_refund_time = #{record.orderRefundTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.xyb.AppletsOrders">
+    update applets_orders
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        mer_code = #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSnapshotIds != null">
+        goods_snapshot_ids = #{goodsSnapshotIds,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPic != null">
+        goods_pic = #{goodsPic,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCount != null">
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalMoney != null">
+        total_money = #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deliverMoney != null">
+        deliver_money = #{deliverMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="isPay != null">
+        is_pay = #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="isInvoice != null">
+        is_invoice = #{isInvoice,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceClient != null">
+        invoice_client = #{invoiceClient,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemarks != null">
+        order_remarks = #{orderRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSrc != null">
+        order_src = #{orderSrc,jdbcType=INTEGER},
+      </if>
+      <if test="orderFlag != null">
+        order_flag = #{orderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="transactionId != null">
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="payfRom != null">
+        payf_rom = #{payfRom,jdbcType=INTEGER},
+      </if>
+      <if test="realOtalOney != null">
+        real_otal_oney = #{realOtalOney,jdbcType=DECIMAL},
+      </if>
+      <if test="payTotalMoney != null">
+        pay_total_money = #{payTotalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="pryTime != null">
+        pry_time = #{pryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCompletionTime != null">
+        order_completion_time = #{orderCompletionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ordersCancelTime != null">
+        orders_cancel_time = #{ordersCancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundTime != null">
+        order_refund_time = #{orderRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.xyb.AppletsOrders">
+    update applets_orders
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      mer_code = #{merCode,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_snapshot_ids = #{goodsSnapshotIds,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_pic = #{goodsPic,jdbcType=VARCHAR},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      total_money = #{totalMoney,jdbcType=DECIMAL},
+      deliver_money = #{deliverMoney,jdbcType=DECIMAL},
+      pay_type = #{payType,jdbcType=INTEGER},
+      is_pay = #{isPay,jdbcType=INTEGER},
+      open_id = #{openId,jdbcType=VARCHAR},
+      address_id = #{addressId,jdbcType=INTEGER},
+      is_invoice = #{isInvoice,jdbcType=INTEGER},
+      invoice_client = #{invoiceClient,jdbcType=VARCHAR},
+      order_remarks = #{orderRemarks,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      order_src = #{orderSrc,jdbcType=INTEGER},
+      order_flag = #{orderFlag,jdbcType=INTEGER},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      payf_rom = #{payfRom,jdbcType=INTEGER},
+      real_otal_oney = #{realOtalOney,jdbcType=DECIMAL},
+      pay_total_money = #{payTotalMoney,jdbcType=DECIMAL},
+      pry_time = #{pryTime,jdbcType=TIMESTAMP},
+      order_completion_time = #{orderCompletionTime,jdbcType=TIMESTAMP},
+      orders_cancel_time = #{ordersCancelTime,jdbcType=TIMESTAMP},
+      order_refund_time = #{orderRefundTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.ai.TUserChatMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.ai.TUserChat">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="buy_user_id" jdbcType="VARCHAR" property="buyUserId" />
+    <result column="mer_code" jdbcType="VARCHAR" property="merCode" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="chat_time" jdbcType="TIMESTAMP" property="chatTime" />
+    <result column="message_type_id" jdbcType="INTEGER" property="messageTypeId" />
+    <result column="msg_status" jdbcType="SMALLINT" property="msgStatus" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="create_dt" jdbcType="TIMESTAMP" property="createDt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, buy_user_id, mer_code, content, chat_time, message_type_id, msg_status, status, 
+    create_dt
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.ai.TUserChatExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_chat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_chat
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_user_chat
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.ai.TUserChatExample">
+    delete from t_user_chat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.ai.TUserChat">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user_chat (buy_user_id, mer_code, content, 
+      chat_time, message_type_id, msg_status, 
+      status, create_dt)
+    values (#{buyUserId,jdbcType=VARCHAR}, #{merCode,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{chatTime,jdbcType=TIMESTAMP}, #{messageTypeId,jdbcType=INTEGER}, #{msgStatus,jdbcType=SMALLINT}, 
+      #{status,jdbcType=SMALLINT}, #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.ai.TUserChat">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user_chat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buyUserId != null">
+        buy_user_id,
+      </if>
+      <if test="merCode != null">
+        mer_code,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="chatTime != null">
+        chat_time,
+      </if>
+      <if test="messageTypeId != null">
+        message_type_id,
+      </if>
+      <if test="msgStatus != null">
+        msg_status,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createDt != null">
+        create_dt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buyUserId != null">
+        #{buyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="chatTime != null">
+        #{chatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageTypeId != null">
+        #{messageTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="msgStatus != null">
+        #{msgStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.ai.TUserChatExample" resultType="java.lang.Long">
+    select count(*) from t_user_chat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_user_chat
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.buyUserId != null">
+        buy_user_id = #{record.buyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merCode != null">
+        mer_code = #{record.merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chatTime != null">
+        chat_time = #{record.chatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.messageTypeId != null">
+        message_type_id = #{record.messageTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgStatus != null">
+        msg_status = #{record.msgStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createDt != null">
+        create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_user_chat
+    set id = #{record.id,jdbcType=BIGINT},
+      buy_user_id = #{record.buyUserId,jdbcType=VARCHAR},
+      mer_code = #{record.merCode,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      chat_time = #{record.chatTime,jdbcType=TIMESTAMP},
+      message_type_id = #{record.messageTypeId,jdbcType=INTEGER},
+      msg_status = #{record.msgStatus,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT},
+      create_dt = #{record.createDt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.ai.TUserChat">
+    update t_user_chat
+    <set>
+      <if test="buyUserId != null">
+        buy_user_id = #{buyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        mer_code = #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="chatTime != null">
+        chat_time = #{chatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageTypeId != null">
+        message_type_id = #{messageTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="msgStatus != null">
+        msg_status = #{msgStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createDt != null">
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.ai.TUserChat">
+    update t_user_chat
+    set buy_user_id = #{buyUserId,jdbcType=VARCHAR},
+      mer_code = #{merCode,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      chat_time = #{chatTime,jdbcType=TIMESTAMP},
+      message_type_id = #{messageTypeId,jdbcType=INTEGER},
+      msg_status = #{msgStatus,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      create_dt = #{createDt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <!--添加处-->
+    <resultMap id="TUserChatMap" type="com.xyb.ai.dto.TChatExtendsTUserTrackDto" extends="BaseResultMap">
+        <result column="user_jmg_url" jdbcType="VARCHAR" property="userJmgUrl"/>
+        <result column="nick" jdbcType="VARCHAR" property="nick"/>
+    </resultMap>
+
+
+    <select id="getChatPeopleList" resultMap="TUserChatMap">
+      SELECT
+          P.*,
+          N.*
+      FROM
+          (SELECT
+              A.id,
+              A.user_id,
+              A.user_jmg_url,
+              A.nick
+          FROM
+              t_user_track A
+          JOIN
+              (SELECT user_id, MAX(id) id FROM t_user_track GROUP BY user_id ) B
+          on A.id = B.id
+          ) P
+      JOIN (
+          SELECT
+              C.buy_user_id,
+              C.content,
+              C.create_dt
+          FROM
+              t_user_chat C
+          JOIN
+              (
+              SELECT
+                  buy_user_id,
+                  mer_code,
+                  MAX( id ) id
+              FROM
+                  t_user_chat
+              WHERE
+                  mer_code = #{merCode,jdbcType=VARCHAR}
+              GROUP BY
+                  buy_user_id,
+                  mer_code
+              ) D
+          ON C.id = D.id
+          WHERE
+              msg_status = '1'
+              AND STATUS = '1'
+          ) N
+      ON
+          P.user_id = N.buy_user_id
+    </select>
+</mapper>

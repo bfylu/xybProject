@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.shop.mapper.xyb.MemberConsumeMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.shop.model.xyb.MemberConsume">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_no" jdbcType="VARCHAR" property="memberNo" />
+    <result column="buyer_username" jdbcType="VARCHAR" property="buyerUsername" />
+    <result column="seller_mer_code" jdbcType="VARCHAR" property="sellerMerCode" />
+    <result column="bill_no" jdbcType="VARCHAR" property="billNo" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="order_desc" jdbcType="VARCHAR" property="orderDesc" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="seller_order_status" jdbcType="INTEGER" property="sellerOrderStatus" />
+    <result column="take_method" jdbcType="INTEGER" property="takeMethod" />
+    <result column="payment_order_no" jdbcType="VARCHAR" property="paymentOrderNo" />
+    <result column="payment_amount" jdbcType="DECIMAL" property="paymentAmount" />
+    <result column="installment_order_no" jdbcType="VARCHAR" property="installmentOrderNo" />
+    <result column="installment_amount" jdbcType="DECIMAL" property="installmentAmount" />
+    <result column="consume_code" jdbcType="VARCHAR" property="consumeCode" />
+    <result column="consume_code_status" jdbcType="INTEGER" property="consumeCodeStatus" />
+    <result column="goods_snapshot_ids" jdbcType="VARCHAR" property="goodsSnapshotIds" />
+    <result column="is_finish" jdbcType="VARCHAR" property="isFinish" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="goods_price" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="goods_freight" jdbcType="DECIMAL" property="goodsFreight" />
+    <result column="order_lump_sum" jdbcType="DECIMAL" property="orderLumpSum" />
+    <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="post_code" jdbcType="INTEGER" property="postCode" />
+    <result column="is_invoice" jdbcType="INTEGER" property="isInvoice" />
+    <result column="invoice_client" jdbcType="VARCHAR" property="invoiceClient" />
+    <result column="isdel" jdbcType="INTEGER" property="isdel" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="seller_close_cause_no" jdbcType="VARCHAR" property="sellerCloseCauseNo" />
+    <result column="seller_close_cause" jdbcType="VARCHAR" property="sellerCloseCause" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, member_no, buyer_username, seller_mer_code, bill_no, order_no, order_amount, 
+    order_time, expire_time, order_desc, order_status, seller_order_status, take_method, 
+    payment_order_no, payment_amount, installment_order_no, installment_amount, consume_code, 
+    consume_code_status, goods_snapshot_ids, is_finish, remark, create_time, update_time, 
+    user_name, user_phone, user_tel, goods_price, goods_count, total_price, order_type, 
+    goods_freight, order_lump_sum, province_code, city_code, area_code, address, post_code, 
+    is_invoice, invoice_client, isdel, pay_time, seller_close_cause_no, seller_close_cause
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.shop.model.xyb.MemberConsumeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member_consume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_consume
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from member_consume
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.shop.model.xyb.MemberConsumeExample">
+    delete from member_consume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.shop.model.xyb.MemberConsume">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into member_consume (member_no, buyer_username, seller_mer_code, 
+      bill_no, order_no, order_amount, 
+      order_time, expire_time, order_desc, 
+      order_status, seller_order_status, take_method, 
+      payment_order_no, payment_amount, installment_order_no, 
+      installment_amount, consume_code, consume_code_status, 
+      goods_snapshot_ids, is_finish, remark, 
+      create_time, update_time, user_name, 
+      user_phone, user_tel, goods_price, 
+      goods_count, total_price, order_type, 
+      goods_freight, order_lump_sum, province_code, 
+      city_code, area_code, address, 
+      post_code, is_invoice, invoice_client, 
+      isdel, pay_time, seller_close_cause_no, 
+      seller_close_cause)
+    values (#{memberNo,jdbcType=VARCHAR}, #{buyerUsername,jdbcType=VARCHAR}, #{sellerMerCode,jdbcType=VARCHAR}, 
+      #{billNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{orderAmount,jdbcType=DECIMAL}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}, #{orderDesc,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=INTEGER}, #{sellerOrderStatus,jdbcType=INTEGER}, #{takeMethod,jdbcType=INTEGER}, 
+      #{paymentOrderNo,jdbcType=VARCHAR}, #{paymentAmount,jdbcType=DECIMAL}, #{installmentOrderNo,jdbcType=VARCHAR}, 
+      #{installmentAmount,jdbcType=DECIMAL}, #{consumeCode,jdbcType=VARCHAR}, #{consumeCodeStatus,jdbcType=INTEGER}, 
+      #{goodsSnapshotIds,jdbcType=VARCHAR}, #{isFinish,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{goodsCount,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, #{orderType,jdbcType=INTEGER}, 
+      #{goodsFreight,jdbcType=DECIMAL}, #{orderLumpSum,jdbcType=DECIMAL}, #{provinceCode,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=INTEGER}, #{isInvoice,jdbcType=INTEGER}, #{invoiceClient,jdbcType=VARCHAR}, 
+      #{isdel,jdbcType=INTEGER}, #{payTime,jdbcType=TIMESTAMP}, #{sellerCloseCauseNo,jdbcType=VARCHAR}, 
+      #{sellerCloseCause,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.shop.model.xyb.MemberConsume">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into member_consume
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberNo != null">
+        member_no,
+      </if>
+      <if test="buyerUsername != null">
+        buyer_username,
+      </if>
+      <if test="sellerMerCode != null">
+        seller_mer_code,
+      </if>
+      <if test="billNo != null">
+        bill_no,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="expireTime != null">
+        expire_time,
+      </if>
+      <if test="orderDesc != null">
+        order_desc,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="sellerOrderStatus != null">
+        seller_order_status,
+      </if>
+      <if test="takeMethod != null">
+        take_method,
+      </if>
+      <if test="paymentOrderNo != null">
+        payment_order_no,
+      </if>
+      <if test="paymentAmount != null">
+        payment_amount,
+      </if>
+      <if test="installmentOrderNo != null">
+        installment_order_no,
+      </if>
+      <if test="installmentAmount != null">
+        installment_amount,
+      </if>
+      <if test="consumeCode != null">
+        consume_code,
+      </if>
+      <if test="consumeCodeStatus != null">
+        consume_code_status,
+      </if>
+      <if test="goodsSnapshotIds != null">
+        goods_snapshot_ids,
+      </if>
+      <if test="isFinish != null">
+        is_finish,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userTel != null">
+        user_tel,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsCount != null">
+        goods_count,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="goodsFreight != null">
+        goods_freight,
+      </if>
+      <if test="orderLumpSum != null">
+        order_lump_sum,
+      </if>
+      <if test="provinceCode != null">
+        province_code,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="isInvoice != null">
+        is_invoice,
+      </if>
+      <if test="invoiceClient != null">
+        invoice_client,
+      </if>
+      <if test="isdel != null">
+        isdel,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="sellerCloseCauseNo != null">
+        seller_close_cause_no,
+      </if>
+      <if test="sellerCloseCause != null">
+        seller_close_cause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerUsername != null">
+        #{buyerUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerMerCode != null">
+        #{sellerMerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billNo != null">
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderDesc != null">
+        #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sellerOrderStatus != null">
+        #{sellerOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="takeMethod != null">
+        #{takeMethod,jdbcType=INTEGER},
+      </if>
+      <if test="paymentOrderNo != null">
+        #{paymentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAmount != null">
+        #{paymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="installmentOrderNo != null">
+        #{installmentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="installmentAmount != null">
+        #{installmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeCode != null">
+        #{consumeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="consumeCodeStatus != null">
+        #{consumeCodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSnapshotIds != null">
+        #{goodsSnapshotIds,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null">
+        #{isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsCount != null">
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsFreight != null">
+        #{goodsFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="orderLumpSum != null">
+        #{orderLumpSum,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=INTEGER},
+      </if>
+      <if test="isInvoice != null">
+        #{isInvoice,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceClient != null">
+        #{invoiceClient,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerCloseCauseNo != null">
+        #{sellerCloseCauseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCloseCause != null">
+        #{sellerCloseCause,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.shop.model.xyb.MemberConsumeExample" resultType="java.lang.Long">
+    select count(*) from member_consume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update member_consume
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberNo != null">
+        member_no = #{record.memberNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyerUsername != null">
+        buyer_username = #{record.buyerUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerMerCode != null">
+        seller_mer_code = #{record.sellerMerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billNo != null">
+        bill_no = #{record.billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAmount != null">
+        order_amount = #{record.orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderTime != null">
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expireTime != null">
+        expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderDesc != null">
+        order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellerOrderStatus != null">
+        seller_order_status = #{record.sellerOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.takeMethod != null">
+        take_method = #{record.takeMethod,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentOrderNo != null">
+        payment_order_no = #{record.paymentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentAmount != null">
+        payment_amount = #{record.paymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.installmentOrderNo != null">
+        installment_order_no = #{record.installmentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.installmentAmount != null">
+        installment_amount = #{record.installmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.consumeCode != null">
+        consume_code = #{record.consumeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consumeCodeStatus != null">
+        consume_code_status = #{record.consumeCodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsSnapshotIds != null">
+        goods_snapshot_ids = #{record.goodsSnapshotIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFinish != null">
+        is_finish = #{record.isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userTel != null">
+        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPrice != null">
+        goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsCount != null">
+        goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalPrice != null">
+        total_price = #{record.totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderType != null">
+        order_type = #{record.orderType,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsFreight != null">
+        goods_freight = #{record.goodsFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderLumpSum != null">
+        order_lump_sum = #{record.orderLumpSum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.provinceCode != null">
+        province_code = #{record.provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null">
+        city_code = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null">
+        area_code = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null">
+        post_code = #{record.postCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.isInvoice != null">
+        is_invoice = #{record.isInvoice,jdbcType=INTEGER},
+      </if>
+      <if test="record.invoiceClient != null">
+        invoice_client = #{record.invoiceClient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdel != null">
+        isdel = #{record.isdel,jdbcType=INTEGER},
+      </if>
+      <if test="record.payTime != null">
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sellerCloseCauseNo != null">
+        seller_close_cause_no = #{record.sellerCloseCauseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerCloseCause != null">
+        seller_close_cause = #{record.sellerCloseCause,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update member_consume
+    set id = #{record.id,jdbcType=BIGINT},
+      member_no = #{record.memberNo,jdbcType=VARCHAR},
+      buyer_username = #{record.buyerUsername,jdbcType=VARCHAR},
+      seller_mer_code = #{record.sellerMerCode,jdbcType=VARCHAR},
+      bill_no = #{record.billNo,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      order_amount = #{record.orderAmount,jdbcType=DECIMAL},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      seller_order_status = #{record.sellerOrderStatus,jdbcType=INTEGER},
+      take_method = #{record.takeMethod,jdbcType=INTEGER},
+      payment_order_no = #{record.paymentOrderNo,jdbcType=VARCHAR},
+      payment_amount = #{record.paymentAmount,jdbcType=DECIMAL},
+      installment_order_no = #{record.installmentOrderNo,jdbcType=VARCHAR},
+      installment_amount = #{record.installmentAmount,jdbcType=DECIMAL},
+      consume_code = #{record.consumeCode,jdbcType=VARCHAR},
+      consume_code_status = #{record.consumeCodeStatus,jdbcType=INTEGER},
+      goods_snapshot_ids = #{record.goodsSnapshotIds,jdbcType=VARCHAR},
+      is_finish = #{record.isFinish,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      total_price = #{record.totalPrice,jdbcType=DECIMAL},
+      order_type = #{record.orderType,jdbcType=INTEGER},
+      goods_freight = #{record.goodsFreight,jdbcType=DECIMAL},
+      order_lump_sum = #{record.orderLumpSum,jdbcType=DECIMAL},
+      province_code = #{record.provinceCode,jdbcType=VARCHAR},
+      city_code = #{record.cityCode,jdbcType=VARCHAR},
+      area_code = #{record.areaCode,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      post_code = #{record.postCode,jdbcType=INTEGER},
+      is_invoice = #{record.isInvoice,jdbcType=INTEGER},
+      invoice_client = #{record.invoiceClient,jdbcType=VARCHAR},
+      isdel = #{record.isdel,jdbcType=INTEGER},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      seller_close_cause_no = #{record.sellerCloseCauseNo,jdbcType=VARCHAR},
+      seller_close_cause = #{record.sellerCloseCause,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.shop.model.xyb.MemberConsume">
+    update member_consume
+    <set>
+      <if test="memberNo != null">
+        member_no = #{memberNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerUsername != null">
+        buyer_username = #{buyerUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerMerCode != null">
+        seller_mer_code = #{sellerMerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billNo != null">
+        bill_no = #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderDesc != null">
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sellerOrderStatus != null">
+        seller_order_status = #{sellerOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="takeMethod != null">
+        take_method = #{takeMethod,jdbcType=INTEGER},
+      </if>
+      <if test="paymentOrderNo != null">
+        payment_order_no = #{paymentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAmount != null">
+        payment_amount = #{paymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="installmentOrderNo != null">
+        installment_order_no = #{installmentOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="installmentAmount != null">
+        installment_amount = #{installmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="consumeCode != null">
+        consume_code = #{consumeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="consumeCodeStatus != null">
+        consume_code_status = #{consumeCodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="goodsSnapshotIds != null">
+        goods_snapshot_ids = #{goodsSnapshotIds,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null">
+        is_finish = #{isFinish,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsCount != null">
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsFreight != null">
+        goods_freight = #{goodsFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="orderLumpSum != null">
+        order_lump_sum = #{orderLumpSum,jdbcType=DECIMAL},
+      </if>
+      <if test="provinceCode != null">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=INTEGER},
+      </if>
+      <if test="isInvoice != null">
+        is_invoice = #{isInvoice,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceClient != null">
+        invoice_client = #{invoiceClient,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerCloseCauseNo != null">
+        seller_close_cause_no = #{sellerCloseCauseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerCloseCause != null">
+        seller_close_cause = #{sellerCloseCause,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.shop.model.xyb.MemberConsume">
+    update member_consume
+    set member_no = #{memberNo,jdbcType=VARCHAR},
+      buyer_username = #{buyerUsername,jdbcType=VARCHAR},
+      seller_mer_code = #{sellerMerCode,jdbcType=VARCHAR},
+      bill_no = #{billNo,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      order_desc = #{orderDesc,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      seller_order_status = #{sellerOrderStatus,jdbcType=INTEGER},
+      take_method = #{takeMethod,jdbcType=INTEGER},
+      payment_order_no = #{paymentOrderNo,jdbcType=VARCHAR},
+      payment_amount = #{paymentAmount,jdbcType=DECIMAL},
+      installment_order_no = #{installmentOrderNo,jdbcType=VARCHAR},
+      installment_amount = #{installmentAmount,jdbcType=DECIMAL},
+      consume_code = #{consumeCode,jdbcType=VARCHAR},
+      consume_code_status = #{consumeCodeStatus,jdbcType=INTEGER},
+      goods_snapshot_ids = #{goodsSnapshotIds,jdbcType=VARCHAR},
+      is_finish = #{isFinish,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      order_type = #{orderType,jdbcType=INTEGER},
+      goods_freight = #{goodsFreight,jdbcType=DECIMAL},
+      order_lump_sum = #{orderLumpSum,jdbcType=DECIMAL},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=INTEGER},
+      is_invoice = #{isInvoice,jdbcType=INTEGER},
+      invoice_client = #{invoiceClient,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      seller_close_cause_no = #{sellerCloseCauseNo,jdbcType=VARCHAR},
+      seller_close_cause = #{sellerCloseCause,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

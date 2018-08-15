@@ -1,0 +1,137 @@
+# 开发环境
+online: false       # 线上才验证登录
+
+server:
+   port: 8087
+#   servlet:
+#    path: /ai
+
+logging.config: classpath:log-dev.xml
+
+management:
+   endpoints:
+      web:
+         exposure:
+             include: '*'
+             #include: bus-refresh
+
+         #开启端点以及跨域,默认web只开启了health和info
+         cors:
+             allowed-origins: "*"
+             allowed-methods: "*"
+   endpoint:
+      health:
+         show-details: ALWAYS
+
+eureka:
+   client:
+      healthcheck:
+         enabled: true
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka/
+   instance:
+      prefer-ip-address: true
+      leaseRenewalIntervalInSeconds: 15
+      health-check-url-path: /actuator/health
+      metadata-map:
+         user.name: ${spring.security.user.name}
+         user.password: ${spring.security.user.password}
+
+spring:
+    application:
+       name: shop-service
+    security:
+       user:
+          name: "client"
+          password: "client"
+    sleuth:
+       sampler:
+          probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+    zipkin:
+       base-url: http://192.168.1.201:9411 # 指定了 Zipkin 服务器的地址
+    cache:
+       type: redis
+    session:
+       store-type: redis
+    redis:
+       host: 192.168.1.201
+       port: 6379
+       password:
+
+tls:
+   sdkAppid: 1400102354
+   private-key: D:\ai\src\main\key\private_key
+   public-key: D:\ai\src\main\key\public_key
+   admin-Account: xyb123456
+#   private-key: /home/chen/key/private_key
+#   public-key: /home/chen/key/public_key
+
+db:
+    ai:
+         #卢健
+        url: jdbc:mysql://bfylu.top:3306/ai?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&statementInterceptors=com.xyb.ai.common.util.ShowSqlInterceptor
+        username: root
+        password: lu123456
+
+#        url: jdbc:mysql://192.168.1.201:3306/ai?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&statementInterceptors=com.xyb.ai.common.util.ShowSqlInterceptor
+#        username: root
+#        password: 123456
+
+#        url: jdbc:mysql://192.168.1.123:3306/ai?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&statementInterceptors=com.xyb.common.util.ShowSqlInterceptor
+#        username: xyb
+#        password: payadd.cn
+
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        maxOpenPreparedStatements: 20
+
+    xyb:
+
+        url: jdbc:mysql://bfylu.top:3306/xyb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&statementInterceptors=com.xyb.common.util.ShowSqlInterceptor
+        username: root
+        password: lu123456
+
+#        url: jdbc:mysql://192.168.1.123:3306/xyb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&statementInterceptors=com.xyb.common.util.ShowSqlInterceptor
+#        username: xyb
+#        password: payadd.cn
+
+
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        maxOpenPreparedStatements: 20
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    returnPageInfo: check

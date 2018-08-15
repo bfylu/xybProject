@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <property name="CONSOLE_LOG_PATTERN" value="[%X{receiveTime}%d] [${PID:- } %t\\(%logger\\) : %p]%n[%X{requestInfo} %X{headInfo}]%n%class.%method\\(%file:%line\\)%n%m%n%n"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <logger name="springfox.documentation" level="warn"/>
+    <logger name="org.springframework" level="warn"/>
+    <logger name="org.hibernate" level="warn"/>
+    <logger name="com.alibaba" level="error"/>
+    <logger name="com.netflix" level="warn"/>
+    <logger name="org.mybatis" level="warn"/>
+    <logger name="freemarker" level="warn"/>
+    <logger name="com.github" level="warn"/>
+    <logger name="org.apache" level="warn"/>
+    <logger name="org.I0Itec" level="warn"/>
+    <logger name="org.jboss" level="warn"/>
+    <logger name="io.github" level="warn"/>
+
+    <!--//日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出。-->
+    <root level="debug">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

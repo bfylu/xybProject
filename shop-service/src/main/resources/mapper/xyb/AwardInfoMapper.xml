@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.shop.mapper.xyb.AwardInfoMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.shop.model.xyb.AwardInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="prize_id" jdbcType="BIGINT" property="prizeId" />
+    <result column="prize_category" jdbcType="INTEGER" property="prizeCategory" />
+    <result column="prize_number" jdbcType="INTEGER" property="prizeNumber" />
+    <result column="ref_no" jdbcType="VARCHAR" property="refNo" />
+    <result column="prize_pic" jdbcType="VARCHAR" property="prizePic" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="prize_for_activity" jdbcType="INTEGER" property="prizeForActivity" />
+    <result column="create_dt" jdbcType="TIMESTAMP" property="createDt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, open_id, prize_id, prize_category, prize_number, ref_no, prize_pic, prize_name, 
+    state, prize_for_activity, create_dt
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.shop.model.xyb.AwardInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from award_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from award_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from award_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.shop.model.xyb.AwardInfoExample">
+    delete from award_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.shop.model.xyb.AwardInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into award_info (open_id, prize_id, prize_category, 
+      prize_number, ref_no, prize_pic, 
+      prize_name, state, prize_for_activity, 
+      create_dt)
+    values (#{openId,jdbcType=VARCHAR}, #{prizeId,jdbcType=BIGINT}, #{prizeCategory,jdbcType=INTEGER}, 
+      #{prizeNumber,jdbcType=INTEGER}, #{refNo,jdbcType=VARCHAR}, #{prizePic,jdbcType=VARCHAR}, 
+      #{prizeName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{prizeForActivity,jdbcType=INTEGER}, 
+      #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.shop.model.xyb.AwardInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into award_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="prizeId != null">
+        prize_id,
+      </if>
+      <if test="prizeCategory != null">
+        prize_category,
+      </if>
+      <if test="prizeNumber != null">
+        prize_number,
+      </if>
+      <if test="refNo != null">
+        ref_no,
+      </if>
+      <if test="prizePic != null">
+        prize_pic,
+      </if>
+      <if test="prizeName != null">
+        prize_name,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="prizeForActivity != null">
+        prize_for_activity,
+      </if>
+      <if test="createDt != null">
+        create_dt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeId != null">
+        #{prizeId,jdbcType=BIGINT},
+      </if>
+      <if test="prizeCategory != null">
+        #{prizeCategory,jdbcType=INTEGER},
+      </if>
+      <if test="prizeNumber != null">
+        #{prizeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="refNo != null">
+        #{refNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prizePic != null">
+        #{prizePic,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeName != null">
+        #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="prizeForActivity != null">
+        #{prizeForActivity,jdbcType=INTEGER},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.shop.model.xyb.AwardInfoExample" resultType="java.lang.Long">
+    select count(*) from award_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update award_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prizeId != null">
+        prize_id = #{record.prizeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.prizeCategory != null">
+        prize_category = #{record.prizeCategory,jdbcType=INTEGER},
+      </if>
+      <if test="record.prizeNumber != null">
+        prize_number = #{record.prizeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.refNo != null">
+        ref_no = #{record.refNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prizePic != null">
+        prize_pic = #{record.prizePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prizeName != null">
+        prize_name = #{record.prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.prizeForActivity != null">
+        prize_for_activity = #{record.prizeForActivity,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDt != null">
+        create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update award_info
+    set id = #{record.id,jdbcType=BIGINT},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      prize_id = #{record.prizeId,jdbcType=BIGINT},
+      prize_category = #{record.prizeCategory,jdbcType=INTEGER},
+      prize_number = #{record.prizeNumber,jdbcType=INTEGER},
+      ref_no = #{record.refNo,jdbcType=VARCHAR},
+      prize_pic = #{record.prizePic,jdbcType=VARCHAR},
+      prize_name = #{record.prizeName,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      prize_for_activity = #{record.prizeForActivity,jdbcType=INTEGER},
+      create_dt = #{record.createDt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.shop.model.xyb.AwardInfo">
+    update award_info
+    <set>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeId != null">
+        prize_id = #{prizeId,jdbcType=BIGINT},
+      </if>
+      <if test="prizeCategory != null">
+        prize_category = #{prizeCategory,jdbcType=INTEGER},
+      </if>
+      <if test="prizeNumber != null">
+        prize_number = #{prizeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="refNo != null">
+        ref_no = #{refNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prizePic != null">
+        prize_pic = #{prizePic,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeName != null">
+        prize_name = #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="prizeForActivity != null">
+        prize_for_activity = #{prizeForActivity,jdbcType=INTEGER},
+      </if>
+      <if test="createDt != null">
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.shop.model.xyb.AwardInfo">
+    update award_info
+    set open_id = #{openId,jdbcType=VARCHAR},
+      prize_id = #{prizeId,jdbcType=BIGINT},
+      prize_category = #{prizeCategory,jdbcType=INTEGER},
+      prize_number = #{prizeNumber,jdbcType=INTEGER},
+      ref_no = #{refNo,jdbcType=VARCHAR},
+      prize_pic = #{prizePic,jdbcType=VARCHAR},
+      prize_name = #{prizeName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      prize_for_activity = #{prizeForActivity,jdbcType=INTEGER},
+      create_dt = #{createDt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.xyb.TransNotifyMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.xyb.TransNotify">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="notify_no" jdbcType="VARCHAR" property="notifyNo" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="resp_code" jdbcType="VARCHAR" property="respCode" />
+    <result column="resp_desc" jdbcType="VARCHAR" property="respDesc" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="notify_content_type" jdbcType="VARCHAR" property="notifyContentType" />
+    <result column="notify_status" jdbcType="VARCHAR" property="notifyStatus" />
+    <result column="total_call" jdbcType="INTEGER" property="totalCall" />
+    <result column="last_notify_time" jdbcType="TIMESTAMP" property="lastNotifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xyb.ai.model.xyb.TransNotifyWithBLOBs">
+    <result column="req_msg" jdbcType="LONGVARCHAR" property="reqMsg" />
+    <result column="resp_msg" jdbcType="LONGVARCHAR" property="respMsg" />
+    <result column="excp_msg" jdbcType="LONGVARCHAR" property="excpMsg" />
+    <result column="notify_msg" jdbcType="LONGVARCHAR" property="notifyMsg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, notify_no, order_no, resp_code, resp_desc, notify_url, notify_content_type, notify_status, 
+    total_call, last_notify_time, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    req_msg, resp_msg, excp_msg, notify_msg
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.xyb.ai.model.xyb.TransNotifyExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from trans_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.xyb.TransNotifyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trans_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from trans_notify
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from trans_notify
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.xyb.TransNotifyExample">
+    delete from trans_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.xyb.TransNotifyWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_notify (notify_no, order_no, resp_code, 
+      resp_desc, notify_url, notify_content_type, 
+      notify_status, total_call, last_notify_time, 
+      create_time, update_time, req_msg, 
+      resp_msg, excp_msg, notify_msg
+      )
+    values (#{notifyNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{respCode,jdbcType=VARCHAR}, 
+      #{respDesc,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, #{notifyContentType,jdbcType=VARCHAR}, 
+      #{notifyStatus,jdbcType=VARCHAR}, #{totalCall,jdbcType=INTEGER}, #{lastNotifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{reqMsg,jdbcType=LONGVARCHAR}, 
+      #{respMsg,jdbcType=LONGVARCHAR}, #{excpMsg,jdbcType=LONGVARCHAR}, #{notifyMsg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.xyb.TransNotifyWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trans_notify
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="notifyNo != null">
+        notify_no,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="respCode != null">
+        resp_code,
+      </if>
+      <if test="respDesc != null">
+        resp_desc,
+      </if>
+      <if test="notifyUrl != null">
+        notify_url,
+      </if>
+      <if test="notifyContentType != null">
+        notify_content_type,
+      </if>
+      <if test="notifyStatus != null">
+        notify_status,
+      </if>
+      <if test="totalCall != null">
+        total_call,
+      </if>
+      <if test="lastNotifyTime != null">
+        last_notify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="reqMsg != null">
+        req_msg,
+      </if>
+      <if test="respMsg != null">
+        resp_msg,
+      </if>
+      <if test="excpMsg != null">
+        excp_msg,
+      </if>
+      <if test="notifyMsg != null">
+        notify_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="notifyNo != null">
+        #{notifyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="respCode != null">
+        #{respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="respDesc != null">
+        #{respDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyContentType != null">
+        #{notifyContentType,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null">
+        #{notifyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCall != null">
+        #{totalCall,jdbcType=INTEGER},
+      </if>
+      <if test="lastNotifyTime != null">
+        #{lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqMsg != null">
+        #{reqMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="respMsg != null">
+        #{respMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="excpMsg != null">
+        #{excpMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notifyMsg != null">
+        #{notifyMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.xyb.TransNotifyExample" resultType="java.lang.Long">
+    select count(*) from trans_notify
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update trans_notify
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.notifyNo != null">
+        notify_no = #{record.notifyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respCode != null">
+        resp_code = #{record.respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respDesc != null">
+        resp_desc = #{record.respDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyUrl != null">
+        notify_url = #{record.notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyContentType != null">
+        notify_content_type = #{record.notifyContentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyStatus != null">
+        notify_status = #{record.notifyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalCall != null">
+        total_call = #{record.totalCall,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastNotifyTime != null">
+        last_notify_time = #{record.lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reqMsg != null">
+        req_msg = #{record.reqMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.respMsg != null">
+        resp_msg = #{record.respMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.excpMsg != null">
+        excp_msg = #{record.excpMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.notifyMsg != null">
+        notify_msg = #{record.notifyMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update trans_notify
+    set id = #{record.id,jdbcType=BIGINT},
+      notify_no = #{record.notifyNo,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      resp_code = #{record.respCode,jdbcType=VARCHAR},
+      resp_desc = #{record.respDesc,jdbcType=VARCHAR},
+      notify_url = #{record.notifyUrl,jdbcType=VARCHAR},
+      notify_content_type = #{record.notifyContentType,jdbcType=VARCHAR},
+      notify_status = #{record.notifyStatus,jdbcType=VARCHAR},
+      total_call = #{record.totalCall,jdbcType=INTEGER},
+      last_notify_time = #{record.lastNotifyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      req_msg = #{record.reqMsg,jdbcType=LONGVARCHAR},
+      resp_msg = #{record.respMsg,jdbcType=LONGVARCHAR},
+      excp_msg = #{record.excpMsg,jdbcType=LONGVARCHAR},
+      notify_msg = #{record.notifyMsg,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update trans_notify
+    set id = #{record.id,jdbcType=BIGINT},
+      notify_no = #{record.notifyNo,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      resp_code = #{record.respCode,jdbcType=VARCHAR},
+      resp_desc = #{record.respDesc,jdbcType=VARCHAR},
+      notify_url = #{record.notifyUrl,jdbcType=VARCHAR},
+      notify_content_type = #{record.notifyContentType,jdbcType=VARCHAR},
+      notify_status = #{record.notifyStatus,jdbcType=VARCHAR},
+      total_call = #{record.totalCall,jdbcType=INTEGER},
+      last_notify_time = #{record.lastNotifyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.xyb.TransNotifyWithBLOBs">
+    update trans_notify
+    <set>
+      <if test="notifyNo != null">
+        notify_no = #{notifyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="respCode != null">
+        resp_code = #{respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="respDesc != null">
+        resp_desc = #{respDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyContentType != null">
+        notify_content_type = #{notifyContentType,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null">
+        notify_status = #{notifyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCall != null">
+        total_call = #{totalCall,jdbcType=INTEGER},
+      </if>
+      <if test="lastNotifyTime != null">
+        last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqMsg != null">
+        req_msg = #{reqMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="respMsg != null">
+        resp_msg = #{respMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="excpMsg != null">
+        excp_msg = #{excpMsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notifyMsg != null">
+        notify_msg = #{notifyMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xyb.ai.model.xyb.TransNotifyWithBLOBs">
+    update trans_notify
+    set notify_no = #{notifyNo,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      resp_code = #{respCode,jdbcType=VARCHAR},
+      resp_desc = #{respDesc,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      notify_content_type = #{notifyContentType,jdbcType=VARCHAR},
+      notify_status = #{notifyStatus,jdbcType=VARCHAR},
+      total_call = #{totalCall,jdbcType=INTEGER},
+      last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      req_msg = #{reqMsg,jdbcType=LONGVARCHAR},
+      resp_msg = #{respMsg,jdbcType=LONGVARCHAR},
+      excp_msg = #{excpMsg,jdbcType=LONGVARCHAR},
+      notify_msg = #{notifyMsg,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.xyb.TransNotify">
+    update trans_notify
+    set notify_no = #{notifyNo,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      resp_code = #{respCode,jdbcType=VARCHAR},
+      resp_desc = #{respDesc,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      notify_content_type = #{notifyContentType,jdbcType=VARCHAR},
+      notify_status = #{notifyStatus,jdbcType=VARCHAR},
+      total_call = #{totalCall,jdbcType=INTEGER},
+      last_notify_time = #{lastNotifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

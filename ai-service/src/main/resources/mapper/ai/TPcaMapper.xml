@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.ai.TPcaMapper">
+    <resultMap id="BaseResultMap" type="com.xyb.ai.model.ai.TPca">
+        <id column="pca_code" jdbcType="VARCHAR" property="pcaCode"/>
+        <result column="pca_name" jdbcType="VARCHAR" property="pcaName"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+        <result column="pca_desc" jdbcType="VARCHAR" property="pcaDesc"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        pca_code, pca_name, status, pca_desc
+    </sql>
+    <select id="selectByExample" parameterType="com.xyb.ai.model.ai.TPcaExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_pca
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_pca
+        where pca_code = #{pcaCode,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_pca
+        where pca_code = #{pcaCode,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.xyb.ai.model.ai.TPcaExample">
+        delete from t_pca
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.xyb.ai.model.ai.TPca">
+        insert into t_pca (pca_code, pca_name, status,
+        pca_desc)
+        values (#{pcaCode,jdbcType=VARCHAR}, #{pcaName,jdbcType=VARCHAR}, #{status,jdbcType=BIT},
+        #{pcaDesc,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xyb.ai.model.ai.TPca">
+        insert into t_pca
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pcaCode != null">
+                pca_code,
+            </if>
+            <if test="pcaName != null">
+                pca_name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="pcaDesc != null">
+                pca_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pcaCode != null">
+                #{pcaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pcaName != null">
+                #{pcaName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="pcaDesc != null">
+                #{pcaDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.xyb.ai.model.ai.TPcaExample" resultType="java.lang.Long">
+        select count(*) from t_pca
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_pca
+        <set>
+            <if test="record.pcaCode != null">
+                pca_code = #{record.pcaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.pcaName != null">
+                pca_name = #{record.pcaName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=BIT},
+            </if>
+            <if test="record.pcaDesc != null">
+                pca_desc = #{record.pcaDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_pca
+        set pca_code = #{record.pcaCode,jdbcType=VARCHAR},
+        pca_name = #{record.pcaName,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=BIT},
+        pca_desc = #{record.pcaDesc,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.ai.TPca">
+        update t_pca
+        <set>
+            <if test="pcaName != null">
+                pca_name = #{pcaName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="pcaDesc != null">
+                pca_desc = #{pcaDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where pca_code = #{pcaCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.ai.TPca">
+        update t_pca
+        set pca_name = #{pcaName,jdbcType=VARCHAR},
+        status = #{status,jdbcType=BIT},
+        pca_desc = #{pcaDesc,jdbcType=VARCHAR}
+        where pca_code = #{pcaCode,jdbcType=VARCHAR}
+    </update>
+    <select id="getForCityAndArea" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM t_pca
+        WHERE pca_name LIKE CONCAT(#{area},'%')
+        AND pca_code LIKE CONCAT((SELECT LEFT (pca_code, 2) FROM t_pca WHERE pca_name LIKE CONCAT(#{city},'%')),	'%')
+
+    </select>
+</mapper>

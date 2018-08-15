@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.xyb.TotalTransOrderMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.xyb.TotalTransOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="src_db" jdbcType="VARCHAR" property="srcDb" />
+    <result column="src_table" jdbcType="VARCHAR" property="srcTable" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="mer_code" jdbcType="VARCHAR" property="merCode" />
+    <result column="sub_mer_code" jdbcType="VARCHAR" property="subMerCode" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="function_code" jdbcType="VARCHAR" property="functionCode" />
+    <result column="biz_type" jdbcType="VARCHAR" property="bizType" />
+    <result column="biz_subtype" jdbcType="VARCHAR" property="bizSubtype" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="orig_order_no" jdbcType="VARCHAR" property="origOrderNo" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="free_amount" jdbcType="DECIMAL" property="freeAmount" />
+    <result column="free_method" jdbcType="DECIMAL" property="freeMethod" />
+    <result column="pay_method" jdbcType="VARCHAR" property="payMethod" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="channel_code" jdbcType="VARCHAR" property="channelCode" />
+    <result column="chan_prod_code" jdbcType="VARCHAR" property="chanProdCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, src_db, src_table, category, mer_code, sub_mer_code, username, product_code, 
+    function_code, biz_type, biz_subtype, order_no, orig_order_no, order_type, order_amount, 
+    free_amount, free_method, pay_method, pay_type, order_status, order_time, channel_code, 
+    chan_prod_code, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.xyb.TotalTransOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from total_trans_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from total_trans_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from total_trans_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.xyb.TotalTransOrderExample">
+    delete from total_trans_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.xyb.TotalTransOrder">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into total_trans_order (src_db, src_table, category, 
+      mer_code, sub_mer_code, username, 
+      product_code, function_code, biz_type, 
+      biz_subtype, order_no, orig_order_no, 
+      order_type, order_amount, free_amount, 
+      free_method, pay_method, pay_type, 
+      order_status, order_time, channel_code, 
+      chan_prod_code, create_time, update_time
+      )
+    values (#{srcDb,jdbcType=VARCHAR}, #{srcTable,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{merCode,jdbcType=VARCHAR}, #{subMerCode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{functionCode,jdbcType=VARCHAR}, #{bizType,jdbcType=VARCHAR}, 
+      #{bizSubtype,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{origOrderNo,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=VARCHAR}, #{orderAmount,jdbcType=DECIMAL}, #{freeAmount,jdbcType=DECIMAL}, 
+      #{freeMethod,jdbcType=DECIMAL}, #{payMethod,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{channelCode,jdbcType=VARCHAR}, 
+      #{chanProdCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.xyb.TotalTransOrder">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into total_trans_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="srcDb != null">
+        src_db,
+      </if>
+      <if test="srcTable != null">
+        src_table,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="merCode != null">
+        mer_code,
+      </if>
+      <if test="subMerCode != null">
+        sub_mer_code,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="functionCode != null">
+        function_code,
+      </if>
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="bizSubtype != null">
+        biz_subtype,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="origOrderNo != null">
+        orig_order_no,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="freeAmount != null">
+        free_amount,
+      </if>
+      <if test="freeMethod != null">
+        free_method,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="channelCode != null">
+        channel_code,
+      </if>
+      <if test="chanProdCode != null">
+        chan_prod_code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="srcDb != null">
+        #{srcDb,jdbcType=VARCHAR},
+      </if>
+      <if test="srcTable != null">
+        #{srcTable,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subMerCode != null">
+        #{subMerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionCode != null">
+        #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        #{bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="bizSubtype != null">
+        #{bizSubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="origOrderNo != null">
+        #{origOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="freeAmount != null">
+        #{freeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="freeMethod != null">
+        #{freeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelCode != null">
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chanProdCode != null">
+        #{chanProdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.xyb.TotalTransOrderExample" resultType="java.lang.Long">
+    select count(*) from total_trans_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update total_trans_order
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.srcDb != null">
+        src_db = #{record.srcDb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcTable != null">
+        src_table = #{record.srcTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merCode != null">
+        mer_code = #{record.merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subMerCode != null">
+        sub_mer_code = #{record.subMerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productCode != null">
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionCode != null">
+        function_code = #{record.functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizType != null">
+        biz_type = #{record.bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizSubtype != null">
+        biz_subtype = #{record.bizSubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.origOrderNo != null">
+        orig_order_no = #{record.origOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null">
+        order_type = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAmount != null">
+        order_amount = #{record.orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freeAmount != null">
+        free_amount = #{record.freeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freeMethod != null">
+        free_method = #{record.freeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payMethod != null">
+        pay_method = #{record.payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null">
+        pay_type = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null">
+        order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.channelCode != null">
+        channel_code = #{record.channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanProdCode != null">
+        chan_prod_code = #{record.chanProdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update total_trans_order
+    set id = #{record.id,jdbcType=INTEGER},
+      src_db = #{record.srcDb,jdbcType=VARCHAR},
+      src_table = #{record.srcTable,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      mer_code = #{record.merCode,jdbcType=VARCHAR},
+      sub_mer_code = #{record.subMerCode,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      function_code = #{record.functionCode,jdbcType=VARCHAR},
+      biz_type = #{record.bizType,jdbcType=VARCHAR},
+      biz_subtype = #{record.bizSubtype,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      orig_order_no = #{record.origOrderNo,jdbcType=VARCHAR},
+      order_type = #{record.orderType,jdbcType=VARCHAR},
+      order_amount = #{record.orderAmount,jdbcType=DECIMAL},
+      free_amount = #{record.freeAmount,jdbcType=DECIMAL},
+      free_method = #{record.freeMethod,jdbcType=DECIMAL},
+      pay_method = #{record.payMethod,jdbcType=VARCHAR},
+      pay_type = #{record.payType,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=VARCHAR},
+      order_time = #{record.orderTime,jdbcType=TIMESTAMP},
+      channel_code = #{record.channelCode,jdbcType=VARCHAR},
+      chan_prod_code = #{record.chanProdCode,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.xyb.TotalTransOrder">
+    update total_trans_order
+    <set>
+      <if test="srcDb != null">
+        src_db = #{srcDb,jdbcType=VARCHAR},
+      </if>
+      <if test="srcTable != null">
+        src_table = #{srcTable,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="merCode != null">
+        mer_code = #{merCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subMerCode != null">
+        sub_mer_code = #{subMerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionCode != null">
+        function_code = #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="bizSubtype != null">
+        biz_subtype = #{bizSubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="origOrderNo != null">
+        orig_order_no = #{origOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="freeAmount != null">
+        free_amount = #{freeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="freeMethod != null">
+        free_method = #{freeMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelCode != null">
+        channel_code = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chanProdCode != null">
+        chan_prod_code = #{chanProdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.xyb.TotalTransOrder">
+    update total_trans_order
+    set src_db = #{srcDb,jdbcType=VARCHAR},
+      src_table = #{srcTable,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      mer_code = #{merCode,jdbcType=VARCHAR},
+      sub_mer_code = #{subMerCode,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      function_code = #{functionCode,jdbcType=VARCHAR},
+      biz_type = #{bizType,jdbcType=VARCHAR},
+      biz_subtype = #{bizSubtype,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      orig_order_no = #{origOrderNo,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      free_amount = #{freeAmount,jdbcType=DECIMAL},
+      free_method = #{freeMethod,jdbcType=DECIMAL},
+      pay_method = #{payMethod,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      channel_code = #{channelCode,jdbcType=VARCHAR},
+      chan_prod_code = #{chanProdCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

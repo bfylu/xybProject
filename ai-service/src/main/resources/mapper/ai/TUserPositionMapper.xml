@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.ai.TUserPositionMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.ai.TUserPosition">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_jmg_url" jdbcType="VARCHAR" property="userJmgUrl" />
+    <result column="nick" jdbcType="VARCHAR" property="nick" />
+    <result column="sex" jdbcType="SMALLINT" property="sex" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="cur_address" jdbcType="VARCHAR" property="curAddress" />
+    <result column="pca_code" jdbcType="VARCHAR" property="pcaCode" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="create_dt" jdbcType="TIMESTAMP" property="createDt" />
+    <result column="update_dt" jdbcType="TIMESTAMP" property="updateDt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, user_jmg_url, nick, sex, phone, cur_address, pca_code, longitude, latitude, 
+    status, create_dt, update_dt
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.ai.TUserPositionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_position
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_position
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_user_position
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.ai.TUserPositionExample">
+    delete from t_user_position
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.ai.TUserPosition">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user_position (user_id, user_jmg_url, nick, 
+      sex, phone, cur_address, 
+      pca_code, longitude, latitude, 
+      status, create_dt, update_dt
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{userJmgUrl,jdbcType=VARCHAR}, #{nick,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=SMALLINT}, #{phone,jdbcType=VARCHAR}, #{curAddress,jdbcType=VARCHAR}, 
+      #{pcaCode,jdbcType=VARCHAR}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{status,jdbcType=SMALLINT}, #{createDt,jdbcType=TIMESTAMP}, #{updateDt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.ai.TUserPosition">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user_position
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userJmgUrl != null">
+        user_jmg_url,
+      </if>
+      <if test="nick != null">
+        nick,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="curAddress != null">
+        cur_address,
+      </if>
+      <if test="pcaCode != null">
+        pca_code,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createDt != null">
+        create_dt,
+      </if>
+      <if test="updateDt != null">
+        update_dt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userJmgUrl != null">
+        #{userJmgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nick != null">
+        #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="curAddress != null">
+        #{curAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pcaCode != null">
+        #{pcaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null">
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.ai.TUserPositionExample" resultType="java.lang.Long">
+    select count(*) from t_user_position
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_user_position
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userJmgUrl != null">
+        user_jmg_url = #{record.userJmgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nick != null">
+        nick = #{record.nick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.curAddress != null">
+        cur_address = #{record.curAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcaCode != null">
+        pca_code = #{record.pcaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createDt != null">
+        create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDt != null">
+        update_dt = #{record.updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_user_position
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_jmg_url = #{record.userJmgUrl,jdbcType=VARCHAR},
+      nick = #{record.nick,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=SMALLINT},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      cur_address = #{record.curAddress,jdbcType=VARCHAR},
+      pca_code = #{record.pcaCode,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=DECIMAL},
+      latitude = #{record.latitude,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=SMALLINT},
+      create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      update_dt = #{record.updateDt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.ai.TUserPosition">
+    update t_user_position
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userJmgUrl != null">
+        user_jmg_url = #{userJmgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nick != null">
+        nick = #{nick,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="curAddress != null">
+        cur_address = #{curAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pcaCode != null">
+        pca_code = #{pcaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createDt != null">
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null">
+        update_dt = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.ai.TUserPosition">
+    update t_user_position
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_jmg_url = #{userJmgUrl,jdbcType=VARCHAR},
+      nick = #{nick,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=SMALLINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      cur_address = #{curAddress,jdbcType=VARCHAR},
+      pca_code = #{pcaCode,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL},
+      status = #{status,jdbcType=SMALLINT},
+      create_dt = #{createDt,jdbcType=TIMESTAMP},
+      update_dt = #{updateDt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--添加处-->
+  <!--获取在线人数,商户范围内的用户-->
+<!--
+  <select id="getOnLinePeopleCount" resultType="java.lang.Long">
+    SELECT
+    COUNT( id )
+    FROM
+      t_user_position
+    WHERE
+    <![CDATA[
+      update_dt >= ADDDATE( now( ), INTERVAL - 10 MINUTE )
+      AND longitude >= #{minLng,jdbcType=DECIMAL}
+      AND longitude <= #{maxLng,jdbcType=DECIMAL}
+      AND latitude >=  #{minLat,jdbcType=DECIMAL}
+      AND latitude <=  #{maxLat,jdbcType=DECIMAL}
+    ]]>
+      AND STATUS = '1'
+  </select>
+-->
+  <!--获取在线人数,以前浏览过商家商品的人-->
+  <select id="getOnLinePeopleCount" resultType="java.lang.Long">
+    SELECT COUNT(0) FROM
+		(SELECT user_id,mer_code FROM t_user_action_count WHERE mer_code=#{merCode,jdbcType=VARCHAR} GROUP BY user_id,mer_code ) A
+    JOIN
+		(SELECT * FROM t_user_position WHERE  update_dt >= ADDDATE( now( ), INTERVAL - 10 MINUTE ) AND STATUS = '1') B
+    ON A.user_id=B.user_id
+  </select>
+
+
+  <!--获取商户四周用户-->
+  <select id="getAroundCustomer" resultMap="BaseResultMap">
+    SELECT
+        user_id,
+        user_jmg_url,
+        nick,
+        sex,
+        longitude,
+        latitude
+    FROM
+        t_user_position
+    WHERE
+      <![CDATA[
+        update_dt > ADDDATE( now( ), INTERVAL - 10 MINUTE )
+        AND longitude >= #{minLng,jdbcType=DECIMAL}
+        AND longitude <= #{maxLng,jdbcType=DECIMAL}
+        AND latitude >=  #{minLat,jdbcType=DECIMAL}
+        AND latitude <=  #{maxLat,jdbcType=DECIMAL}
+      ]]>
+        AND STATUS = '1'
+  </select>
+
+  <!--根据商户编号查询客户列表-->
+  <select id="selectCustomerList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+        A.user_id,
+        A.user_jmg_url,
+        A.nick,
+        A.sex,
+        A.longitude,
+        A.latitude,
+        A.phone,
+        B.update_dt
+    FROM
+        ( SELECT user_id, user_jmg_url, nick, sex, latitude, longitude, phone FROM t_user_position WHERE STATUS = '1' ) A
+        JOIN ( SELECT user_id, MAX( update_dt ) AS update_dt FROM t_user_action_count WHERE mer_code = #{merCode,jdbcType=VARCHAR} GROUP BY user_id, mer_code ) B
+        ON A.user_id = B.user_id
+    ORDER BY
+        B.update_dt DESC
+  </select>
+
+
+  <!--获取客户信息详情-->
+  <select id="getNewCustomerINfo" resultMap="BaseResultMap">
+    SELECT
+        A.user_id,
+        user_jmg_url,
+        nick,
+        sex,
+        phone,
+        longitude,
+        latitude,
+        B.update_dt
+    FROM
+        t_user_position A
+    JOIN ( SELECT user_id, mer_code, MAX( update_dt ) update_dt FROM t_user_action_count WHERE user_id = #{userId,jdbcType=VARCHAR} AND mer_code=#{merCode,jdbcType=VARCHAR} GROUP BY user_id, mer_code ) B
+    ON A.user_id = B.user_id
+    </select>
+
+</mapper>

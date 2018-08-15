@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: admin-service
+#    sleuth:
+#        sampler:
+#            probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+#    zipkin:
+#        base-url: http://localhost:9411 # 指定了 Zipkin 服务器的地址
+  profiles:
+    active:
+      - secure
+server:
+  port: 8788
+
+# tag::configuration-eureka[]
+eureka:   #<1>
+  instance:
+     prefer-ip-address: true
+#    leaseRenewalIntervalInSeconds: 10
+#    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #<2>
+  endpoint:
+    health:
+      show-details: ALWAYS
+# end::configuration-eureka[]
+
+---
+spring:
+  profiles: insecure
+
+---
+spring:
+  profiles: secure
+  security:
+    user:
+      name: "admin"
+      password: "admin"
+eureka:
+  instance:
+    metadata-map:
+      user.name: ${spring.security.user.name}         #These two are needed so that the server
+      user.password: ${spring.security.user.password} #can access the protected client endpoints

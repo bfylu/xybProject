@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyb.ai.mapper.xyb.WechatUserMapper">
+  <resultMap id="BaseResultMap" type="com.xyb.ai.model.xyb.WechatUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="subscribe" jdbcType="VARCHAR" property="subscribe" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="pay_password" jdbcType="VARCHAR" property="payPassword" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="subscribe_time" jdbcType="TIMESTAMP" property="subscribeTime" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="idcard_pic" jdbcType="VARCHAR" property="idcardPic" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="is_auth" jdbcType="VARCHAR" property="isAuth" />
+    <result column="is_face_auth" jdbcType="VARCHAR" property="isFaceAuth" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="groupid" jdbcType="VARCHAR" property="groupid" />
+    <result column="tagid_list" jdbcType="VARCHAR" property="tagidList" />
+    <result column="subscribe_scene" jdbcType="VARCHAR" property="subscribeScene" />
+    <result column="qr_scene" jdbcType="VARCHAR" property="qrScene" />
+    <result column="qr_scene_str" jdbcType="VARCHAR" property="qrSceneStr" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_dt" jdbcType="TIMESTAMP" property="createDt" />
+    <result column="update_dt" jdbcType="TIMESTAMP" property="updateDt" />
+    <result column="is_user_type" jdbcType="INTEGER" property="isUserType" />
+    <result column="user_is_support_Stage" jdbcType="INTEGER" property="userIsSupportStage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, subscribe, openid, nickname, pay_password, sex, city, country, province, language, 
+    headimgurl, subscribe_time, real_name, idcard, idcard_pic, birthday, is_auth, is_face_auth, 
+    unionid, remark, groupid, tagid_list, subscribe_scene, qr_scene, qr_scene_str, phone, 
+    status, create_dt, update_dt, is_user_type, user_is_support_Stage
+  </sql>
+  <select id="selectByExample" parameterType="com.xyb.ai.model.xyb.WechatUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wechat_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wechat_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xyb.ai.model.xyb.WechatUserExample">
+    delete from wechat_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xyb.ai.model.xyb.WechatUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wechat_user (subscribe, openid, nickname, 
+      pay_password, sex, city, 
+      country, province, language, 
+      headimgurl, subscribe_time, real_name, 
+      idcard, idcard_pic, birthday, 
+      is_auth, is_face_auth, unionid, 
+      remark, groupid, tagid_list, 
+      subscribe_scene, qr_scene, qr_scene_str, 
+      phone, status, create_dt, 
+      update_dt, is_user_type, user_is_support_Stage
+      )
+    values (#{subscribe,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{payPassword,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
+      #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP}, #{realName,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{idcardPic,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{isAuth,jdbcType=VARCHAR}, #{isFaceAuth,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, #{tagidList,jdbcType=VARCHAR}, 
+      #{subscribeScene,jdbcType=VARCHAR}, #{qrScene,jdbcType=VARCHAR}, #{qrSceneStr,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDt,jdbcType=TIMESTAMP}, 
+      #{updateDt,jdbcType=TIMESTAMP}, #{isUserType,jdbcType=INTEGER}, #{userIsSupportStage,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xyb.ai.model.xyb.WechatUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wechat_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subscribe != null">
+        subscribe,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="payPassword != null">
+        pay_password,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="headimgurl != null">
+        headimgurl,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="idcardPic != null">
+        idcard_pic,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="isAuth != null">
+        is_auth,
+      </if>
+      <if test="isFaceAuth != null">
+        is_face_auth,
+      </if>
+      <if test="unionid != null">
+        unionid,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="tagidList != null">
+        tagid_list,
+      </if>
+      <if test="subscribeScene != null">
+        subscribe_scene,
+      </if>
+      <if test="qrScene != null">
+        qr_scene,
+      </if>
+      <if test="qrSceneStr != null">
+        qr_scene_str,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createDt != null">
+        create_dt,
+      </if>
+      <if test="updateDt != null">
+        update_dt,
+      </if>
+      <if test="isUserType != null">
+        is_user_type,
+      </if>
+      <if test="userIsSupportStage != null">
+        user_is_support_Stage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subscribe != null">
+        #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="payPassword != null">
+        #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardPic != null">
+        #{idcardPic,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="isAuth != null">
+        #{isAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="isFaceAuth != null">
+        #{isFaceAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null">
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="tagidList != null">
+        #{tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeScene != null">
+        #{subscribeScene,jdbcType=VARCHAR},
+      </if>
+      <if test="qrScene != null">
+        #{qrScene,jdbcType=VARCHAR},
+      </if>
+      <if test="qrSceneStr != null">
+        #{qrSceneStr,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null">
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUserType != null">
+        #{isUserType,jdbcType=INTEGER},
+      </if>
+      <if test="userIsSupportStage != null">
+        #{userIsSupportStage,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xyb.ai.model.xyb.WechatUserExample" resultType="java.lang.Long">
+    select count(*) from wechat_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wechat_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.subscribe != null">
+        subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null">
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPassword != null">
+        pay_password = #{record.payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null">
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null">
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribeTime != null">
+        subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null">
+        idcard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardPic != null">
+        idcard_pic = #{record.idcardPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.isAuth != null">
+        is_auth = #{record.isAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFaceAuth != null">
+        is_face_auth = #{record.isFaceAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null">
+        unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null">
+        groupid = #{record.groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagidList != null">
+        tagid_list = #{record.tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribeScene != null">
+        subscribe_scene = #{record.subscribeScene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrScene != null">
+        qr_scene = #{record.qrScene,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrSceneStr != null">
+        qr_scene_str = #{record.qrSceneStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDt != null">
+        create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDt != null">
+        update_dt = #{record.updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isUserType != null">
+        is_user_type = #{record.isUserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.userIsSupportStage != null">
+        user_is_support_Stage = #{record.userIsSupportStage,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wechat_user
+    set id = #{record.id,jdbcType=INTEGER},
+      subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      pay_password = #{record.payPassword,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      idcard = #{record.idcard,jdbcType=VARCHAR},
+      idcard_pic = #{record.idcardPic,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=DATE},
+      is_auth = #{record.isAuth,jdbcType=VARCHAR},
+      is_face_auth = #{record.isFaceAuth,jdbcType=VARCHAR},
+      unionid = #{record.unionid,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      groupid = #{record.groupid,jdbcType=VARCHAR},
+      tagid_list = #{record.tagidList,jdbcType=VARCHAR},
+      subscribe_scene = #{record.subscribeScene,jdbcType=VARCHAR},
+      qr_scene = #{record.qrScene,jdbcType=VARCHAR},
+      qr_scene_str = #{record.qrSceneStr,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_dt = #{record.createDt,jdbcType=TIMESTAMP},
+      update_dt = #{record.updateDt,jdbcType=TIMESTAMP},
+      is_user_type = #{record.isUserType,jdbcType=INTEGER},
+      user_is_support_Stage = #{record.userIsSupportStage,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xyb.ai.model.xyb.WechatUser">
+    update wechat_user
+    <set>
+      <if test="subscribe != null">
+        subscribe = #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="payPassword != null">
+        pay_password = #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardPic != null">
+        idcard_pic = #{idcardPic,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="isAuth != null">
+        is_auth = #{isAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="isFaceAuth != null">
+        is_face_auth = #{isFaceAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null">
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="tagidList != null">
+        tagid_list = #{tagidList,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeScene != null">
+        subscribe_scene = #{subscribeScene,jdbcType=VARCHAR},
+      </if>
+      <if test="qrScene != null">
+        qr_scene = #{qrScene,jdbcType=VARCHAR},
+      </if>
+      <if test="qrSceneStr != null">
+        qr_scene_str = #{qrSceneStr,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDt != null">
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDt != null">
+        update_dt = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUserType != null">
+        is_user_type = #{isUserType,jdbcType=INTEGER},
+      </if>
+      <if test="userIsSupportStage != null">
+        user_is_support_Stage = #{userIsSupportStage,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xyb.ai.model.xyb.WechatUser">
+    update wechat_user
+    set subscribe = #{subscribe,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      pay_password = #{payPassword,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      real_name = #{realName,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      idcard_pic = #{idcardPic,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      is_auth = #{isAuth,jdbcType=VARCHAR},
+      is_face_auth = #{isFaceAuth,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=VARCHAR},
+      tagid_list = #{tagidList,jdbcType=VARCHAR},
+      subscribe_scene = #{subscribeScene,jdbcType=VARCHAR},
+      qr_scene = #{qrScene,jdbcType=VARCHAR},
+      qr_scene_str = #{qrSceneStr,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_dt = #{createDt,jdbcType=TIMESTAMP},
+      update_dt = #{updateDt,jdbcType=TIMESTAMP},
+      is_user_type = #{isUserType,jdbcType=INTEGER},
+      user_is_support_Stage = #{userIsSupportStage,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
